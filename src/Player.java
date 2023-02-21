@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Player {
     private String name;
-    private ArrayList<Letter> letters = new ArrayList<Letter>();
+    private ArrayList<String> letters;
     private int score;
 
     public Player(String name) {
@@ -17,7 +17,7 @@ public class Player {
         return name;
     }
 
-    public List<Object> getLetters() {
+    public ArrayList<String> getLetters() {
         return letters;
     }
 
@@ -26,11 +26,11 @@ public class Player {
     }
 
     //Methods for adding, removing, and getting amount letters from the player
-    public void addLetter(Object letter) {
+    public void addLetter(String letter) {
         letters.add(letter);
     }
 
-    public void removeLetter(Object letter) {
+    public void removeLetter(String letter) {
         letters.remove(letter);
     }
 
