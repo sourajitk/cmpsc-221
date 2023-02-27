@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0bfeaab5-711c-4bed-a82e-9df1f344be04" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/json.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/json-20220924.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WordsAPIClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmpsc221-proj.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cmpsc221-proj.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/APIFetcher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LetterBag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LetterBag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/WordFetcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordFetcher.java" afterDir="false" />
-    </list>
+    <list default="true" id="0bfeaab5-711c-4bed-a82e-9df1f344be04" name="Changes" comment="Set up a scanner for input word and add some TODOs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,6 +44,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
@@ -94,14 +78,59 @@
       <option name="presentableId" value="Default" />
       <updated>1672876407648</updated>
       <workItem from="1672876408768" duration="140000" />
-      <workItem from="1677357716584" duration="1085000" />
+      <workItem from="1677357716584" duration="8812000" />
     </task>
+    <task id="LOCAL-00001" summary="Setup maven deps and initial impl of WordsAPIClient&#10;&#10;Still a long way to go....">
+      <created>1677359110145</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677359110145</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Set up a scanner for input word">
+      <created>1677459836726</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1677459836726</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Set up a scanner for input word and add some TODOs">
+      <created>1677460642782</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1677460642782</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Set up a scanner for input word and add some TODOs">
+      <created>1677460714890</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677460714890</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Setup maven deps and initial impl of WordsAPIClient" />
+    <MESSAGE value="Setup maven deps and initial impl of WordsAPIClient&#10;&#10;Still a long way to go...." />
+    <MESSAGE value="Set up a scanner for input word" />
+    <MESSAGE value="Set up a scanner for input word and add some TODOs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set up a scanner for input word and add some TODOs" />
   </component>
 </project>

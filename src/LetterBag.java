@@ -1,8 +1,8 @@
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class LetterBag {
+public class LetterBag extends Scoreboard {
+
     private ArrayList<Tile> bag;
 
     public LetterBag() {
