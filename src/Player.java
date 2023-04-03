@@ -1,6 +1,4 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Player {
     private String name;
@@ -22,6 +20,25 @@ public class Player {
         return tiles;
     }
 
+    public boolean hasLetter(char letter) {
+        for (Tile tile : tiles) {
+            if (tile.letter == letter) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeTile(char letter) {
+        for (Tile tile : tiles) {
+            if (tile.letter == letter) {
+                tiles.remove(tile);
+                score += tile.value;
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int getScore() {
         return score;
