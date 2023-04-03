@@ -3,6 +3,12 @@ public class Tile {
     char letter;
     int value;
 
+    @Override
+    public String toString() {
+        return "[" + letter +
+                "," + value + "]";
+    }
+
     public Tile(char letter, int value) {
         this.letter = letter;
         this.value = value;

@@ -1,5 +1,9 @@
-public class Scoreboard {
+import javax.swing.*;
 
-    /* TODO: Implement this when the GUI is ready to go */
+public class Scoreboard extends Board {
+
+    public Scoreboard() {
+
+    }
 
 }

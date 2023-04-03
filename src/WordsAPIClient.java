@@ -18,7 +18,7 @@ public class WordsAPIClient {
     private static final String API_URL = "https://wordsapiv1.p.mashape.com/words/";
 
     public static void main(String[] args) throws IOException {
-        String word = Word.word;
+        String word = Word.word;*/
         /* TODO: Implement a way to check if the word doesn't exist. */
         List<String> definitions = getDefinitions(word);
         for (String definition : definitions) {

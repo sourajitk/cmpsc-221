@@ -1,8 +1,8 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class LetterBag extends Scoreboard {
-
+public class LetterBag {
     private ArrayList<Tile> bag;
 
     public LetterBag() {
@@ -10,8 +10,9 @@ public class LetterBag extends Scoreboard {
         createTiles();
     }
 
+
     //Method to create Tile objects and add them to ArrayList ''bag''
-    private void createTiles() {
+    public void createTiles() {
         for (int i=1;i<=12;i++) {
             bag.add(new Tile('E', 1));
         }
@@ -54,7 +55,7 @@ public class LetterBag extends Scoreboard {
     }
 
     //Method to shuffle letter bag
-    private void shuffleBag() {
+    public void shuffleBag() {
         Collections.shuffle(bag);
     }
 
@@ -68,7 +69,8 @@ public class LetterBag extends Scoreboard {
         if (bag.isEmpty()) {
             return null;
         }
-        Tile tile = bag.remove(0);
+        Tile tile = bag.get(0);
+        bag.remove(0);
         shuffleBag();
         return tile;
     }
