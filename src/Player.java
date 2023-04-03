@@ -22,6 +22,7 @@ public class Player {
         return tiles;
     }
 
+
     public int getScore() {
         return score;
     }
