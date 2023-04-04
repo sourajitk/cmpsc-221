@@ -46,9 +46,9 @@ public class Board extends JFrame {
     public JLabel turnTitleJLabel;
     public JLabel playerTurnJLabel;
 
-    public Board() throws IOException {
+    public Board() {
 
-        try {
+/*        try {
             final Image backgroundImage = javax.imageio.ImageIO.read(new File("res/background.jpg"));
             setContentPane(new JPanel(new BorderLayout()) {
                 @Override
@@ -60,7 +60,7 @@ public class Board extends JFrame {
             throw new RuntimeException(e);
         }
         setLocationRelativeTo(mainPanel);
-        setVisible(true);
+        setVisible(true);*/
 
         //Asking for player names
         Player1JLabel.setText(JOptionPane.showInputDialog("What is Player 1's name?"));
@@ -174,23 +174,24 @@ public class Board extends JFrame {
         String tileInput = JOptionPane.showInputDialog("Choose one of your letters to input: " + player.getTiles());
         try {
             char tileCharInput = tileInput.toUpperCase().charAt(0);
-            while (!player.hasLetter(tileCharInput))
+            while (!player.hasLetter(tileCharInput)) {
                 tileInput = JOptionPane.showInputDialog("That letter is not in your collection, please choose one of your letters to input: " + player.getTiles());
-            tileCharInput = tileInput.toUpperCase().charAt(0);
-            if (button.getText() == "---") {
-                player.removeTile(tileCharInput, 1);
-            }
-            if (button.getText() == "★") {
-                player.removeTile(tileCharInput, 1);
-            }
-            if (button.getText() == "2L") {
-                player.removeTile(tileCharInput, 2);
-            }
-            if (button.getText() == "3L") {
-                player.removeTile(tileCharInput, 3);
-            }
-            if (button.getText() == "2W") {
-                player.removeTile(tileCharInput, 3);
+                tileCharInput = tileInput.toUpperCase().charAt(0);
+                if (button.getText() == "---") {
+                    player.removeTile(tileCharInput, 1);
+                }
+                if (button.getText() == "★") {
+                    player.removeTile(tileCharInput, 1);
+                }
+                if (button.getText() == "2L") {
+                    player.removeTile(tileCharInput, 2);
+                }
+                if (button.getText() == "3L") {
+                    player.removeTile(tileCharInput, 3);
+                }
+                if (button.getText() == "2W") {
+                    player.removeTile(tileCharInput, 3);
+                }
             }
             button.setText(tileInput.toUpperCase(Locale.ROOT));
         } catch (NullPointerException e) {
