@@ -7,7 +7,7 @@ public class WordsAPIClient {
     public static void main(String[] args) throws Exception {
 
         String word = Word.word;
-        String apiKey = System.getenv("WORDS_API_KEY");
+        String apiKey = WordsAPIKey.API_KEY;
 
         // set up the request
         HttpResponse<String> response = Unirest.get("https://wordsapiv1.p.rapidapi.com/words/" + word + "/definitions")
