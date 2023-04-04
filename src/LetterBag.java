@@ -10,7 +10,6 @@ public class LetterBag {
         createTiles();
     }
 
-
     //Method to create Tile objects and add them to ArrayList ''bag''
     public void createTiles() {
         for (int i=1;i<=12;i++) {
