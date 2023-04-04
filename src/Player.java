@@ -20,6 +20,10 @@ public class Player {
         return tiles;
     }
 
+    public Tile getTile(Tile tile){
+        return tile;
+    }
+
     public boolean hasLetter(char letter) {
         for (Tile tile : tiles) {
             if (tile.letter == letter) {

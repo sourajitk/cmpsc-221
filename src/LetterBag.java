@@ -7,7 +7,6 @@ public class LetterBag {
 
     public LetterBag() {
         this.bag = new ArrayList<>();
-        createTiles();
     }
 
     //Method to create Tile objects and add them to ArrayList ''bag''
@@ -56,6 +55,10 @@ public class LetterBag {
     //Method to shuffle letter bag
     public void shuffleBag() {
         Collections.shuffle(bag);
+    }
+
+    public void addTile(Tile tile) {
+        bag.add(tile);
     }
 
     //Method to return amount of letters left in bag
