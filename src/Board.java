@@ -9,6 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Board extends JFrame {
 
+    public static Player playerOne;
+    public static Player playerTwo;
+
     public JLabel getPlayer1JLabel() {
         return Player1JLabel;
     }
@@ -48,13 +51,16 @@ public class Board extends JFrame {
         try {
             final Image backgroundImage = javax.imageio.ImageIO.read(new File("res/background.jpg"));
             setContentPane(new JPanel(new BorderLayout()) {
-                @Override public void paintComponent(Graphics g) {
+                @Override
+                public void paintComponent(Graphics g) {
                     g.drawImage(backgroundImage, 0, 0, null);
                 }
             });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        setLocationRelativeTo(mainPanel);
+        setVisible(true);
 
         //Asking for player names
         Player1JLabel.setText(JOptionPane.showInputDialog("What is Player 1's name?"));
@@ -146,9 +152,21 @@ public class Board extends JFrame {
         }
     }
 
-    //TODO method for determining if the game is over
+    // TODO method for determining if the game is over
     public boolean isGameOver() {
-        return false;
+        boolean gameOver = false;
+        if (gameOver == true) {
+            int player1Score = Board.playerOne.getScore();
+            int player2Score = Board.playerTwo.getScore();
+            if (player1Score > player2Score) {
+                JOptionPane.showMessageDialog(null, Player1JLabel.getText() + " wins with a score of " + player1Score);
+            } else if (player2Score > player1Score) {
+                JOptionPane.showMessageDialog(null, Player2JLabel.getText() + " wins with a score of " + player2Score);
+            } else {
+                JOptionPane.showMessageDialog(null, "It's a tie!");
+            }
+        }
+        return gameOver;
     }
 
     //Method for inputting a letter into the board

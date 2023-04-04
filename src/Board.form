@@ -2585,7 +2585,8 @@
           <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-15214180"/>
+          <background color="-14977063"/>
+          <doubleBuffered value="false"/>
         </properties>
         <border type="none"/>
         <children>
@@ -2626,7 +2627,7 @@
           <grid row="1" column="5" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-15214180"/>
+          <background color="-14977063"/>
         </properties>
         <border type="none"/>
         <children>
