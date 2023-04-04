@@ -20,8 +20,13 @@ public class Player {
         return tiles;
     }
 
-    public Tile getTile(Tile tile){
-        return tile;
+    public Tile getTile(char letter){
+        for (Tile tile : tiles) {
+            if (tile.letter == letter) {
+                return tile;
+            }
+        }
+        return null;
     }
 
     public boolean hasLetter(char letter) {
@@ -33,11 +38,20 @@ public class Player {
         return false;
     }
 
-    public boolean removeTile(char letter, int multiplier) {
+    public int updateScore(char letter, int multiplier) {
+        for (Tile tile : tiles) {
+            if (tile.letter == letter) {
+                score += tile.value*multiplier;
+                return score;
+            }
+        }
+        return multiplier;
+    }
+
+    public boolean removeTile(char letter) {
         for (Tile tile : tiles) {
             if (tile.letter == letter) {
                 tiles.remove(tile);
-                score += tile.value*multiplier;
                 return true;
             }
         }

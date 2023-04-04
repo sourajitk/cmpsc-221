@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -43,19 +41,9 @@ public class Board extends JFrame {
     public JLabel turnTitleJLabel;
     public JLabel playerTurnJLabel;
 
-    public Board() throws IOException {
 
-        try {
-            final Image backgroundImage = javax.imageio.ImageIO.read(new File("res/background.jpg"));
-            setContentPane(new JPanel(new BorderLayout()) {
-                @Override public void paintComponent(Graphics g) {
-                    g.drawImage(backgroundImage, 0, 0, null);
-                }
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
+    public Board() {
         //Asking for player names
         Player1JLabel.setText(JOptionPane.showInputDialog("What is Player 1's name?"));
         Player2JLabel.setText(JOptionPane.showInputDialog("What is Player 2's name?"));
@@ -66,6 +54,7 @@ public class Board extends JFrame {
         LetterBag asideBag = new LetterBag();
         bag.createTiles();
         bag.shuffleBag();
+        ArrayList masterArray = new ArrayList();
 
         //Dealing tiles to players, and displaying amount of letters
         Player playerOne = new Player(Player1JLabel.getText());
@@ -85,10 +74,11 @@ public class Board extends JFrame {
         //Creating gameOver and playerTurn variables
         AtomicBoolean gameOver = new AtomicBoolean(false);
         AtomicInteger playerTurn = new AtomicInteger(1);
+        AtomicInteger scoreTurn = new AtomicInteger(0);
 
         //actionListener for endTurn button
         endTurnJButton.addActionListener(e -> {
-            if (isGameOver() == true) {
+            if (isGameOver(bag, playerOne, playerTwo) == true) {
                 gameOver.set(true);
             }
             else {
@@ -120,10 +110,16 @@ public class Board extends JFrame {
             if (playerTurn.get() == 1) {
                 newTiles(playerOne.getTiles(), bag, asideBag, playerOne);
                 Player1LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
+                Player1PointValueJLabel.setText(String.valueOf(playerOne.getScore()));
+                playerTurn.set(2);
+                PlayerTurnValueJLabel.setText(Player2JLabel.getText() + "'s turn!");
             }
             else {
                 newTiles(playerTwo.getTiles(), bag, asideBag, playerTwo);
                 Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
+                Player2PointValueJLabel.setText(String.valueOf(playerTwo.getScore()));
+                playerTurn.set(1);
+                PlayerTurnValueJLabel.setText(Player1JLabel.getText() + "'s turn!");
             }
         });
 
@@ -133,11 +129,12 @@ public class Board extends JFrame {
                 JButton button = (JButton) component;
                 button.addActionListener(e -> {
                         if (playerTurn.get() == 1) {
-                            inputTile(playerOne, button);
+                            scoreTurn.set(inputTile(playerOne, button, scoreTurn.get(), masterArray));
                             Player1LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
+
                         }
                         else {
-                            inputTile(playerTwo, button);
+                            scoreTurn.set(inputTile(playerTwo, button, scoreTurn.get(), masterArray));
                             Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
                         }
                         button.setEnabled(false);
@@ -146,38 +143,51 @@ public class Board extends JFrame {
         }
     }
 
+
     //TODO method for determining if the game is over
-    public boolean isGameOver() {
+    public boolean isGameOver(LetterBag bag, Player playerOne, Player playerTwo) {
+        if (bag.getBagCount() == 0 && playerOne.getLetterCount() == 0 && playerTwo.getLetterCount() == 0) {
+            return true;
+        }
         return false;
     }
 
+
     //Method for inputting a letter into the board
-    public void inputTile(Player player, JButton button) {
+    public int inputTile(Player player, JButton button, int scoreTurn, ArrayList masterArray) {
         String tileInput = JOptionPane.showInputDialog("Choose one of your letters to input: " + player.getTiles());
-        try {
-            char tileCharInput = tileInput.toUpperCase().charAt(0);
-            while (!player.hasLetter(tileCharInput))
-                tileInput = JOptionPane.showInputDialog("That letter is not in your collection, please choose one of your letters to input: " + player.getTiles());
+        char tileCharInput = tileInput.toUpperCase().charAt(0);
+        while (player.hasLetter(tileCharInput) == false) {
+            tileInput = JOptionPane.showInputDialog("That letter is not in your collection, please choose one of your letters to input: " + player.getTiles());
             tileCharInput = tileInput.toUpperCase().charAt(0);
-            if (button.getText() == "---") {
-                player.removeTile(tileCharInput, 1);
-            }
-            if (button.getText() == "★") {
-                player.removeTile(tileCharInput, 1);
-            }
-            if (button.getText() == "2L") {
-                player.removeTile(tileCharInput, 2);
-            }
-            if (button.getText() == "3L") {
-                player.removeTile(tileCharInput, 3);
-            }
-            if (button.getText() == "2W") {
-                player.removeTile(tileCharInput, 3);
-            }
-            button.setText(tileInput.toUpperCase(Locale.ROOT));
-        } catch (NullPointerException e) {
-            System.out.println("No input! Unable to uppercase");
         }
+        if (button.getText() == "---") {
+            scoreTurn = player.updateScore(tileCharInput, 1);
+            masterArray.add(player.getTile(tileCharInput));
+            player.removeTile(tileCharInput);
+        }
+        if (button.getText() == "★") {
+            scoreTurn = player.updateScore(tileCharInput, 1);
+            masterArray.add(player.getTile(tileCharInput));
+            player.removeTile(tileCharInput);
+        }
+        if (button.getText() == "2L") {
+            scoreTurn = player.updateScore(tileCharInput, 2);
+            masterArray.add(player.getTile(tileCharInput));
+            player.removeTile(tileCharInput);
+        }
+        if (button.getText() == "3L") {
+            scoreTurn = player.updateScore(tileCharInput, 2);
+            masterArray.add(player.getTile(tileCharInput));
+            player.removeTile(tileCharInput);
+        }
+        if (button.getText() == "2W") {
+            scoreTurn = player.updateScore(tileCharInput, 1);
+            masterArray.add(player.getTile(tileCharInput));
+            player.removeTile(tileCharInput);
+        }
+        button.setText(tileInput.toUpperCase(Locale.ROOT));
+        return scoreTurn;
     }
 
     //Method for a player getting new letters
@@ -196,7 +206,7 @@ public class Board extends JFrame {
     }
 
     //Main method, creating the scrabble GUI
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         JFrame board = new JFrame("Scrabble");
         board.setContentPane(new Board().mainPanel);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
