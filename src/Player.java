@@ -33,11 +33,11 @@ public class Player {
         return false;
     }
 
-    public boolean removeTile(char letter) {
+    public boolean removeTile(char letter, int multiplier) {
         for (Tile tile : tiles) {
             if (tile.letter == letter) {
                 tiles.remove(tile);
-                score += tile.value;
+                score += tile.value*multiplier;
                 return true;
             }
         }

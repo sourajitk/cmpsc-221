@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -51,11 +49,13 @@ public class Board extends JFrame {
         Player2JLabel.setText(JOptionPane.showInputDialog("What is Player 2's name?"));
         PlayerTurnValueJLabel.setText(Player1JLabel.getText() + "'s turn!");
 
+        //Creation of letter bag and extra bag
         LetterBag bag = new LetterBag();
         LetterBag asideBag = new LetterBag();
         bag.createTiles();
         bag.shuffleBag();
 
+        //Dealing tiles to players, and displaying amount of letters
         Player playerOne = new Player(Player1JLabel.getText());
         Player playerTwo = new Player(Player2JLabel.getText());
         for (int i=1;i<=7;i++) {
@@ -64,15 +64,17 @@ public class Board extends JFrame {
         }
         LettersRemainingValueJLabel.setText(String.valueOf(bag.getBagCount()));
 
+        //Displaying player information (score and letters)
         Player1LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
         Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
-
         Player1PointValueJLabel.setText(String.valueOf(playerOne.getScore()));
         Player2PointValueJLabel.setText(String.valueOf(playerTwo.getScore()));
 
+        //Creating gameOver and playerTurn variables
         AtomicBoolean gameOver = new AtomicBoolean(false);
         AtomicInteger playerTurn = new AtomicInteger(1);
 
+        //actionListener for endTurn button
         endTurnJButton.addActionListener(e -> {
             if (isGameOver() == true) {
                 gameOver.set(true);
@@ -92,15 +94,16 @@ public class Board extends JFrame {
                     for (int i = playerTwo.getTiles().size(); i <= 6; i++ ) {
                         playerTwo.drawLetter(bag.drawTile());
                     }
-                    Player2LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
+                    Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
                     LettersRemainingValueJLabel.setText(String.valueOf(bag.getBagCount()));
-                    Player2PointValueJLabel.setText(String.valueOf(playerOne.getScore()));
+                    Player2PointValueJLabel.setText(String.valueOf(playerTwo.getScore()));
                     playerTurn.set(1);
                     PlayerTurnValueJLabel.setText(Player1JLabel.getText() + "'s turn!");
                 }
             }
         });
 
+        //actionListener for getNewLetters button
         getNewLettersButton.addActionListener(e -> {
             if (playerTurn.get() == 1) {
                 newTiles(playerOne.getTiles(), bag, asideBag, playerOne);
@@ -112,6 +115,7 @@ public class Board extends JFrame {
             }
         });
 
+        //loop creating actionListeners for each button in the 15x15 grid
         for (Component component : boardPanel.getComponents()) {
             if (component instanceof JButton) {
                 JButton button = (JButton) component;
@@ -131,10 +135,12 @@ public class Board extends JFrame {
     }
 
 
+    //TODO method for determining if the game is over
     public boolean isGameOver() {
         return false;
     }
 
+    //Method for inputting a letter into the board
     public void inputTile(Player player, JButton button) {
         String tileInput = JOptionPane.showInputDialog("Choose one of your letters to input: " + player.getTiles());
         char tileCharInput = tileInput.toUpperCase().charAt(0);
@@ -142,10 +148,25 @@ public class Board extends JFrame {
             tileInput = JOptionPane.showInputDialog("That letter is not in your collection, please choose one of your letters to input: " + player.getTiles());
             tileCharInput = tileInput.toUpperCase().charAt(0);
         }
+        if (button.getText() == "---") {
+            player.removeTile(tileCharInput, 1);
+        }
+        if (button.getText() == "★") {
+            player.removeTile(tileCharInput, 1);
+        }
+        if (button.getText() == "2L") {
+            player.removeTile(tileCharInput, 2);
+        }
+        if (button.getText() == "3L") {
+            player.removeTile(tileCharInput, 3);
+        }
+        if (button.getText() == "2W") {
+            player.removeTile(tileCharInput, 3);
+        }
         button.setText(tileInput.toUpperCase(Locale.ROOT));
-        player.removeTile(tileCharInput);
     }
 
+    //Method for a player getting new letters
     public void newTiles(ArrayList playerLetters, LetterBag bag, LetterBag asideBag, Player player) {
         for (int i = 0; i <= 6; i++) {
             asideBag.addTile((Tile) playerLetters.get(i));
@@ -159,6 +180,8 @@ public class Board extends JFrame {
             player.drawLetter(bag.drawTile());
         }
     }
+
+    //Main method, creating the scrabble GUI
     public static void main(String[] args){
         JFrame board = new JFrame("Scrabble");
         board.setContentPane(new Board().mainPanel);
