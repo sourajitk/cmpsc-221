@@ -1,8 +1,10 @@
+import java.io.IOException;
+
 public class Scoreboard extends Board {
 
-    public Scoreboard() {
+    public Scoreboard() throws IOException {
+        super();
 
     }
-
 
 }
