@@ -12,11 +12,9 @@ public class Board extends JFrame {
     public JLabel getPlayer1JLabel() {
         return Player1JLabel;
     }
-
     public JLabel getPlayer2JLabel() {
         return Player2JLabel;
     }
-
     private JLabel Player1JLabel;
     private JLabel Player2JLabel;
     private JLabel Player1PointValueJLabel;
@@ -29,24 +27,9 @@ public class Board extends JFrame {
     private JLabel getLettersRemainingValueJLabel() {
         return LettersRemainingValueJLabel;
     }
-
     private JLabel LettersRemainingValueJLabel;
     private JLabel PointJLabel;
     private JButton CenterJButton;
-    /*private JLabel P1L1JLabel;
-    private JLabel P1L2JLabel;
-    private JLabel P1L3JLabel;
-    private JLabel P1L4JLabel;
-    private JLabel P1L5JLabel;
-    private JLabel P1L6JLabel;
-    private JLabel P1L7JLabel;
-    private JLabel P2L1JLabel;
-    private JLabel P2L2JLabel;
-    private JLabel P2L3JLabel;
-    private JLabel P2L4JLabel;
-    private JLabel P2L5JLabel;
-    private JLabel P2L6JLabel;
-    private JLabel P2L7JLabel;*/
     private JPanel mainPanel;
     private JLabel TitleLabel;
     private JPanel boardPanel;
@@ -63,6 +46,7 @@ public class Board extends JFrame {
 
 
     public Board() {
+        //Asking for player names
         Player1JLabel.setText(JOptionPane.showInputDialog("What is Player 1's name?"));
         Player2JLabel.setText(JOptionPane.showInputDialog("What is Player 2's name?"));
         PlayerTurnValueJLabel.setText(Player1JLabel.getText() + "'s turn!");
@@ -144,8 +128,6 @@ public class Board extends JFrame {
                 });
             }
         }
-
-
     }
 
 
