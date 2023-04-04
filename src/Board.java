@@ -15,33 +15,33 @@ public class Board extends JFrame {
     public JLabel getPlayer2JLabel() {
         return Player2JLabel;
     }
-    private JLabel Player1JLabel;
-    private JLabel Player2JLabel;
-    private JLabel Player1PointValueJLabel;
-    private JLabel PointsJLabel;
-    private JLabel Player2PointValueJLabel;
-    private JLabel TurnHeaderJLabel;
-    private JLabel PlayerTurnValueJLabel;
-    private JLabel LetterBagHeaderJLabel;
+    public JLabel Player1JLabel;
+    public JLabel Player2JLabel;
+    public JLabel Player1PointValueJLabel;
+    public JLabel PointsJLabel;
+    public JLabel Player2PointValueJLabel;
+    public JLabel TurnHeaderJLabel;
+    public JLabel PlayerTurnValueJLabel;
+    public JLabel LetterBagHeaderJLabel;
 
-    private JLabel getLettersRemainingValueJLabel() {
+    public JLabel getLettersRemainingValueJLabel() {
         return LettersRemainingValueJLabel;
     }
-    private JLabel LettersRemainingValueJLabel;
-    private JLabel PointJLabel;
-    private JButton CenterJButton;
-    private JPanel mainPanel;
-    private JLabel TitleLabel;
-    private JPanel boardPanel;
-    private JPanel scoreboardPanel;
-    private JPanel turnPanel;
-    private JPanel letterBagPanel;
-    private JButton endTurnJButton;
-    private JLabel Player1LettersJLabel;
-    private JLabel Player2LettersJLabel;
-    private JButton getNewLettersButton;
-    private JLabel turnTitleJLabel;
-    private JLabel playerTurnJLabel;
+    public JLabel LettersRemainingValueJLabel;
+    public JLabel PointJLabel;
+    public JButton CenterJButton;
+    public JPanel mainPanel;
+    public JLabel TitleLabel;
+    public JPanel boardPanel;
+    public JPanel scoreboardPanel;
+    public JPanel turnPanel;
+    public JPanel letterBagPanel;
+    public JButton endTurnJButton;
+    public JLabel Player1LettersJLabel;
+    public JLabel Player2LettersJLabel;
+    public JButton getNewLettersButton;
+    public JLabel turnTitleJLabel;
+    public JLabel playerTurnJLabel;
 
 
 
