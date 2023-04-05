@@ -60,6 +60,9 @@ public class Board extends JFrame {
         bag.createTiles();
         bag.shuffleBag();
         ArrayList masterArray = new ArrayList();
+        ArrayList turnArray = new ArrayList();
+        ArrayList turnButtons = new ArrayList();
+        ArrayList turnButtonsText = new ArrayList();
 
         /* Dealing tiles to players, and displaying amount of letters */
         Player playerOne = new Player(Player1JLabel.getText());
@@ -83,29 +86,71 @@ public class Board extends JFrame {
 
         /* actionListener for endTurn button */
         endTurnJButton.addActionListener(e -> {
-            if (isGameOver(bag, playerOne, playerTwo) == true) {
-                gameOver.set(true);
-            }
-            else {
+            if (validateWord() == false) {
+                JOptionPane.showMessageDialog(mainPanel, "Not everybody agrees on this word, turn invalid!");
                 if (playerTurn.get() == 1) {
-                    for (int i = playerOne.getTiles().size(); i <= 6; i++ ) {
-                        playerOne.drawLetter(bag.drawTile());
+                    for (Object element : turnArray) {
+                        playerOne.getTiles().add((Tile) element);
                     }
-                    Player1LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
-                    LettersRemainingValueJLabel.setText(String.valueOf(bag.getBagCount()));
-                    Player1PointValueJLabel.setText(String.valueOf(playerOne.getScore()));
-                    playerTurn.set(2);
-                    PlayerTurnValueJLabel.setText(Player2JLabel.getText() + "'s turn!");
+                    int counter = 0;
+                    for (Object button : turnButtons) {
+                        if (button instanceof JButton) {
+                            ((JButton) button).setEnabled(true);
+                            ((JButton) button).setText((String) turnButtonsText.get(counter));
+                            ++counter;
+                        }
+                    }
+                    turnArray.clear();
+                    turnButtons.clear();
+                    turnButtonsText.clear();
                 }
                 else {
-                    for (int i = playerTwo.getTiles().size(); i <= 6; i++ ) {
-                        playerTwo.drawLetter(bag.drawTile());
+                    for (Object element : turnArray) {
+                        playerTwo.getTiles().add((Tile) element);
                     }
-                    Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
-                    LettersRemainingValueJLabel.setText(String.valueOf(bag.getBagCount()));
-                    Player2PointValueJLabel.setText(String.valueOf(playerTwo.getScore()));
-                    playerTurn.set(1);
-                    PlayerTurnValueJLabel.setText(Player1JLabel.getText() + "'s turn!");
+                    int counter = 0;
+                    for (Object button : turnButtons) {
+                        if (button instanceof JButton) {
+                            ((JButton) button).setEnabled(true);
+                            ((JButton) button).setText((String) turnButtonsText.get(counter));
+                            ++counter;
+                        }
+                    }
+                    turnArray.clear();
+                    turnButtons.clear();
+                    turnButtonsText.clear();
+                }
+                Player1LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
+                Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
+            } else {
+                if (isGameOver(bag, playerOne, playerTwo) == true) {
+                    gameOver.set(true);
+                } else {
+                    if (playerTurn.get() == 1) {
+                        for (int i = playerOne.getTiles().size(); i <= 6; i++) {
+                            playerOne.drawLetter(bag.drawTile());
+                        }
+                        Player1LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
+                        LettersRemainingValueJLabel.setText(String.valueOf(bag.getBagCount()));
+                        Player1PointValueJLabel.setText(String.valueOf(playerOne.getScore()));
+                        playerTurn.set(2);
+                        PlayerTurnValueJLabel.setText(Player2JLabel.getText() + "'s turn!");
+                        turnArray.clear();
+                        turnButtons.clear();
+                        turnButtonsText.clear();
+                    } else {
+                        for (int i = playerTwo.getTiles().size(); i <= 6; i++) {
+                            playerTwo.drawLetter(bag.drawTile());
+                        }
+                        Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
+                        LettersRemainingValueJLabel.setText(String.valueOf(bag.getBagCount()));
+                        Player2PointValueJLabel.setText(String.valueOf(playerTwo.getScore()));
+                        playerTurn.set(1);
+                        PlayerTurnValueJLabel.setText(Player1JLabel.getText() + "'s turn!");
+                        turnArray.clear();
+                        turnButtons.clear();
+                        turnButtonsText.clear();
+                    }
                 }
             }
         });
@@ -144,16 +189,17 @@ public class Board extends JFrame {
             if (component instanceof JButton) {
                 JButton button = (JButton) component;
                 button.addActionListener(e -> {
-                        if (playerTurn.get() == 1) {
-                            scoreTurn.set(inputTile(playerOne, button, scoreTurn.get(), masterArray));
-                            Player1LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
-
-                        }
-                        else {
-                            scoreTurn.set(inputTile(playerTwo, button, scoreTurn.get(), masterArray));
-                            Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
-                        }
-                        button.setEnabled(false);
+                    if (playerTurn.get() == 1) {
+                        scoreTurn.set(inputTile(playerOne, button, scoreTurn.get(), masterArray, turnArray, turnButtonsText));
+                        Player1LettersJLabel.setText(String.valueOf(playerOne.getTiles()));
+                        turnButtons.add(button);
+                    }
+                    else {
+                        scoreTurn.set(inputTile(playerTwo, button, scoreTurn.get(), masterArray, turnArray, turnButtonsText));
+                        Player2LettersJLabel.setText(String.valueOf(playerTwo.getTiles()));
+                        turnButtons.add(button);
+                    }
+                    button.setEnabled(false);
                 });
             }
         }
@@ -176,37 +222,60 @@ public class Board extends JFrame {
         return true;
     }
 
+    public boolean validateWord() {
+        int response = JOptionPane.showConfirmDialog(mainPanel, "Do all players agree with this word?");
+        if (response == JOptionPane.YES_OPTION) {
+            return true;
+        } else if (response == JOptionPane.NO_OPTION) {
+            return false;
+        }
+        return true;
+    }
+
     /* Method for inputting a letter into the board */
-    public int inputTile(Player player, JButton button, int scoreTurn, ArrayList masterArray) {
+    public int inputTile(Player player, JButton button, int scoreTurn, ArrayList masterArray, ArrayList turnArray, ArrayList turnButtonsText) {
         String tileInput = JOptionPane.showInputDialog("Choose one of your letters to input: " + player.getTiles());
+        while (tileInput.length() > 1) {
+            tileInput = JOptionPane.showInputDialog("Choose ONE of your letters to input: " + player.getTiles());
+        }
         char tileCharInput = tileInput.toUpperCase().charAt(0);
         while (player.hasLetter(tileCharInput) == false) {
             tileInput = JOptionPane.showInputDialog("That letter is not in your collection, please choose one of your letters to input: " + player.getTiles());
             tileCharInput = tileInput.toUpperCase().charAt(0);
         }
         if (button.getText() == "---") {
+            turnButtonsText.add("---");
             scoreTurn = player.updateScore(tileCharInput, 1);
             masterArray.add(player.getTile(tileCharInput));
+            turnArray.add(player.getTile(tileCharInput));
             player.removeTile(tileCharInput);
         }
         if (button.getText() == "★") {
+            turnButtonsText.add("★");
             scoreTurn = player.updateScore(tileCharInput, 1);
             masterArray.add(player.getTile(tileCharInput));
+            turnArray.add(player.getTile(tileCharInput));
             player.removeTile(tileCharInput);
         }
         if (button.getText() == "2L") {
+            turnButtonsText.add("2L");
             scoreTurn = player.updateScore(tileCharInput, 2);
             masterArray.add(player.getTile(tileCharInput));
+            turnArray.add(player.getTile(tileCharInput));
             player.removeTile(tileCharInput);
         }
         if (button.getText() == "3L") {
+            turnButtonsText.add("3L");
             scoreTurn = player.updateScore(tileCharInput, 2);
             masterArray.add(player.getTile(tileCharInput));
+            turnArray.add(player.getTile(tileCharInput));
             player.removeTile(tileCharInput);
         }
         if (button.getText() == "2W") {
+            turnButtonsText.add("2W");
             scoreTurn = player.updateScore(tileCharInput, 1);
             masterArray.add(player.getTile(tileCharInput));
+            turnArray.add(player.getTile(tileCharInput));
             player.removeTile(tileCharInput);
         }
         button.setText(tileInput.toUpperCase(Locale.ROOT));

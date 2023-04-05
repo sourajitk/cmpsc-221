@@ -71,6 +71,7 @@ public class Player {
         tiles.add(letter);
     }
 
+
     public void removeLetter(Tile letter) {
         tiles.remove(letter);
     }
