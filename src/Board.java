@@ -26,10 +26,6 @@ public class Board extends JFrame {
     public JLabel TurnHeaderJLabel;
     public JLabel PlayerTurnValueJLabel;
     public JLabel LetterBagHeaderJLabel;
-
-    public JLabel getLettersRemainingValueJLabel() {
-        return LettersRemainingValueJLabel;
-    }
     public JLabel LettersRemainingValueJLabel;
     public JLabel PointJLabel;
     public JButton CenterJButton;
