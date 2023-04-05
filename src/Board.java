@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONException;
 
 public class Board extends JFrame {
 
     public static String inputText;
+    public String meaning = null;
+    WordsAPIClient client = new WordsAPIClient();
 
     public JLabel getPlayer1JLabel() {
         return Player1JLabel;
@@ -46,7 +50,7 @@ public class Board extends JFrame {
 
 
 
-    public Board() {
+    public Board() throws UnirestException {
         //Asking for player names
         Player1JLabel.setText(JOptionPane.showInputDialog("What is Player 1's name?"));
         Player2JLabel.setText(JOptionPane.showInputDialog("What is Player 2's name?"));
@@ -129,6 +133,12 @@ public class Board extends JFrame {
         /* actionListener for donTKnowTheButton button */
         donTKnowTheButton.addActionListener(e -> {
             inputText = JOptionPane.showInputDialog("Please enter the word you want to find the meaning for");
+            try {
+                meaning = client.definition();
+                JOptionPane.showMessageDialog(null, meaning);
+            } catch (JSONException | UnirestException ex) {
+                JOptionPane.showMessageDialog(null, "Sorry this word does not exist.");
+            }
         });
 
         //loop creating actionListeners for each button in the 15x15 grid
@@ -224,7 +234,7 @@ public class Board extends JFrame {
     }
 
     //Main method, creating the scrabble GUI
-    public static void main(String[] args){
+    public static void main(String[] args) throws UnirestException {
         JFrame board = new JFrame("Scrabble");
         board.setContentPane(new Board().mainPanel);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

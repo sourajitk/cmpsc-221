@@ -6,10 +6,7 @@ import org.json.JSONObject;
 
 public class WordsAPIClient {
 
-    public String meaning;
-
-    public String fetchSequence(String meaning) throws UnirestException {
-        this.meaning = meaning;
+    public String definition() throws UnirestException {
         String word = Board.getInputText();
         String apiKey = WordsAPIKey.API_KEY;
 
@@ -22,6 +19,7 @@ public class WordsAPIClient {
         // parse the JSON response
         JSONObject json = new JSONObject(response.getBody());
         JSONArray definitions = json.getJSONArray("definitions");
-        return "Definition: " + definitions.getJSONObject(0).getString("definition");
+        String meaning = "Definition: " + definitions.getJSONObject(0).getString("definition");
+        return meaning;
     }
 }
