@@ -14,17 +14,10 @@ import org.json.JSONException;
 public class Board extends JFrame {
 
     /* Define all Board and other related variables */
-
     public static String inputText;
     public String meaning = null;
     WordsAPIClient client = new WordsAPIClient();
 
-    public JLabel getPlayer1JLabel() {
-        return Player1JLabel;
-    }
-    public JLabel getPlayer2JLabel() {
-        return Player2JLabel;
-    }
     public JLabel Player1JLabel;
     public JLabel Player2JLabel;
     public JLabel Player1PointValueJLabel;
