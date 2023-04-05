@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Board extends JFrame {
 
+    public static String inputText;
+
     public JLabel getPlayer1JLabel() {
         return Player1JLabel;
     }
@@ -38,6 +40,7 @@ public class Board extends JFrame {
     public JLabel Player1LettersJLabel;
     public JLabel Player2LettersJLabel;
     public JButton getNewLettersButton;
+    public JButton donTKnowTheButton;
     public JLabel turnTitleJLabel;
     public JLabel playerTurnJLabel;
 
@@ -123,6 +126,11 @@ public class Board extends JFrame {
             }
         });
 
+        /* actionListener for donTKnowTheButton button */
+        donTKnowTheButton.addActionListener(e -> {
+            inputText = JOptionPane.showInputDialog("Please enter the word you want to find the meaning for");
+        });
+
         //loop creating actionListeners for each button in the 15x15 grid
         for (Component component : boardPanel.getComponents()) {
             if (component instanceof JButton) {
@@ -143,15 +151,21 @@ public class Board extends JFrame {
         }
     }
 
-
-    //TODO method for determining if the game is over
     public boolean isGameOver(LetterBag bag, Player playerOne, Player playerTwo) {
         if (bag.getBagCount() == 0 && playerOne.getLetterCount() == 0 && playerTwo.getLetterCount() == 0) {
-            return true;
+            JOptionPane.showMessageDialog(null, "Game Over!");
+            if (playerOne.getScore() > playerTwo.getScore()) {
+                JOptionPane.showMessageDialog(null, "Player" + playerOne + "has won!");
+            } else if (playerTwo.getScore() > playerOne.getScore()) {
+                JOptionPane.showMessageDialog(null, "Player" + playerTwo + "has won!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No way, it's a draw!");
+            }
+        } else {
+            return false;
         }
-        return false;
+        return true;
     }
-
 
     //Method for inputting a letter into the board
     public int inputTile(Player player, JButton button, int scoreTurn, ArrayList masterArray) {
@@ -203,6 +217,10 @@ public class Board extends JFrame {
         for (int i = 0; i <= 6; i++) {
             player.drawLetter(bag.drawTile());
         }
+    }
+
+    public static String getInputText() {
+        return inputText;
     }
 
     //Main method, creating the scrabble GUI
