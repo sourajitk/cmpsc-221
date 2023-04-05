@@ -1,3 +1,7 @@
+/**
+ * Tile management class.
+ */
+
 public class Tile {
 
     char letter;

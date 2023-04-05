@@ -1,3 +1,7 @@
+/**
+ * Full letter bag handler.
+ */
+
 import java.util.ArrayList;
 import java.util.Collections;
 

@@ -1,3 +1,7 @@
+/**
+ * Player information class.
+ */
+
 import java.util.ArrayList;
 
 public class Player {
